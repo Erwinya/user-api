@@ -1,2 +1,2 @@
-# Test
+# Cursor App Demo
 test
