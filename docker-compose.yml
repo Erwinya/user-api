@@ -1,16 +1,27 @@
-version: '3.8'
 services:
-  app:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: user_api
+      POSTGRES_USER: userapi
+      POSTGRES_PASSWORD: userapi
+    ports:
+      - "5436:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U userapi -d user_api"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
     build: .
     ports:
-      - "5000:5000"
-    depends_on:
-      - db
-  db:
-    image: postgres:15
+      - "8080:8080"
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydb
-    ports:
-      - "5432:5432"
+      SPRING_PROFILES_ACTIVE: docker
+      DB_URL: jdbc:postgresql://db:5432/user_api
+      DB_USERNAME: userapi
+      DB_PASSWORD: userapi
+    depends_on:
+      db:
+        condition: service_healthy
