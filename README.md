@@ -26,6 +26,10 @@ Repository: [Erwinya/user-api](https://github.com/Erwinya/user-api)
 
 Swagger UI: http://localhost:8080/swagger-ui.html
 
+## CORS / frontend
+
+Local browser requests are allowed from the companion [user-console](https://github.com/Erwinya/user-console) Vite app at `http://localhost:5173` or `http://127.0.0.1:5173`.
+
 ## Requirements
 
 - Java 17+
