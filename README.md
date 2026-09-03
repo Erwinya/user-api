@@ -48,6 +48,10 @@ Local browser requests are allowed from the companion [user-console](https://git
 ## Example
 
 ```bash
+curl -s http://localhost:8080/actuator/health
+```
+
+```bash
 curl -s -X POST http://localhost:8080/api/v1/users \
   -H "Content-Type: application/json" \
   -d "{\"name\":\"Haluk Kilincer\",\"email\":\"haluk@example.com\"}"
@@ -56,6 +60,8 @@ curl -s -X POST http://localhost:8080/api/v1/users \
 ```bash
 curl -s http://localhost:8080/api/v1/users
 ```
+
+For scripts, prefer `curl -sf` so a non-healthy response fails with a non-zero exit code.
 
 ## Docker (PostgreSQL)
 
