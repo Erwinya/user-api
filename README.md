@@ -34,6 +34,7 @@ Local browser requests are allowed from the companion [user-console](https://git
 
 - Java 17+
 - Maven 3.9+ (or use `./mvnw`)
+- GitHub Actions CI runs `./mvnw test` on push
 
 ## Run locally (H2)
 
