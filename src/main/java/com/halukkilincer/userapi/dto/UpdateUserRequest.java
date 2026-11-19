@@ -8,4 +8,8 @@ public record UpdateUserRequest(
         @NotBlank @Size(min = 2, max = 80) String name,
         @NotBlank @Email @Size(max = 120) String email
 ) {
+    public UpdateUserRequest {
+        name = name == null ? null : name.trim();
+        email = email == null ? null : email.trim().toLowerCase();
+    }
 }
