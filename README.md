@@ -7,7 +7,9 @@ Repository: [Erwinya/user-api](https://github.com/Erwinya/user-api)
 ## Features
 
 - Create, list, get, update, and delete users
+- Optional case-insensitive `name` / `email` list filters
 - Email uniqueness checks
+- Trim + lowercase normalization before validation
 - Request validation and centralized error responses
 - Actuator health endpoint
 - H2 by default for local runs; PostgreSQL via Docker Compose
@@ -18,11 +20,13 @@ Repository: [Erwinya/user-api](https://github.com/Erwinya/user-api)
 | Method | Path | Description |
 |--------|------|-------------|
 | `POST` | `/api/v1/users` | Create user |
-| `GET` | `/api/v1/users` | List users |
-| `GET` | `/api/v1/users/{id}` | Get user |
+| `GET` | `/api/v1/users` | List users (`?name=` / `?email=` optional) |
+| `GET` | `/api/v1/users/{id}` | Get user (`id` must be positive) |
 | `PUT` | `/api/v1/users/{id}` | Update user |
 | `DELETE` | `/api/v1/users/{id}` | Delete user |
 | `GET` | `/actuator/health` | Health probe |
+
+Validation: name 2–80 chars, email max 120, filter params max 80/120. Error body includes `status`, `error`, and `message`.
 
 Swagger UI: http://localhost:8080/swagger-ui.html
 
@@ -92,6 +96,7 @@ $env:DB_PASSWORD="userapi"
 
 ```powershell
 .\mvnw.cmd test
+.\mvnw.cmd -Dtest=UserFilterIntegrationTest,UserValidationIntegrationTest test
 ```
 
 ## License
